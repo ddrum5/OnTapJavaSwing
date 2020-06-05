@@ -5,13 +5,11 @@
  */
 package Bai_3;
 
-import java.io.Serializable;
-
 /**
  *
  * @author DINH
  */
-public class NhanVien extends Person implements Serializable {
+public class NhanVien extends Person {
 
     private String phongBan;
     private int heSoLuong;
@@ -29,6 +27,39 @@ public class NhanVien extends Person implements Serializable {
     public NhanVien() {
     }
 
+    public String getPhongBan() {
+        return phongBan;
+    }
+
+    public void setPhongBan(String phongBan) {
+        this.phongBan = phongBan;
+    }
+
+    public int getHeSoLuong() {
+        return heSoLuong;
+    }
+
+    public void setHeSoLuong(int heSoLuong) {
+        this.heSoLuong = heSoLuong;
+    }
+
+    public int getThamNien() {
+        return thamNien;
+    }
+
+    public void setThamNien(int thamNien) {
+        this.thamNien = thamNien;
+    }
+
+    public long getLuongCoBan() {
+        return luongCoBan;
+    }
+
+    public void setLuongCoBan(long luongCoBan) {
+        this.luongCoBan = luongCoBan;
+    }
+    
+    
     public long thucLinh() {
         return luongCoBan * heSoLuong * (1 + thamNien / 100);
     }

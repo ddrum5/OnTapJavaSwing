@@ -1,21 +1,13 @@
 
-package Bai_3;
+package Bai_4;
 
-import java.io.Serializable;
 
-/**
- *
- * @author DINH
- */
-public class Person implements Serializable{
-    private String hoTen; 
-    private String ngaySinh;
-    private String diaChi;
-    private String gioiTinh;
+public class Person {
+    private String hoTen, ngaySinh, diaChi, gioiTinh;
 
     public Person() {
     }
-    
+
     public Person(String hoTen, String ngaySinh, String diaChi, String gioiTinh) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
@@ -58,9 +50,8 @@ public class Person implements Serializable{
     
     @Override
     public String toString() {
-        return hoTen + "$" + ngaySinh + "$" + diaChi + "$" + gioiTinh;  
+        return hoTen + "\t" + ngaySinh + "\t" + diaChi + "\t" + gioiTinh;
     }
-    
     
     
 }
