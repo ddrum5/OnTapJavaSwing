@@ -100,7 +100,7 @@ public class Form_Bai4 extends javax.swing.JFrame {
             String line="";
             while((line=br.readLine())!=null){
                 String a[] = line.split("\\$");
-                Student st = new Student(a[4], a[5], a[6], a[0], a[1], a[2], a[3]);
+                Student st = new Student(a[4], a[5], Double.valueOf(a[6]), a[0], a[1], a[2], a[3]);
                 dsSV.add(st);
                 defaultTableModel.addRow(a);
             }

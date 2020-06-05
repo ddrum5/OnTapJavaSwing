@@ -2,9 +2,10 @@
 package Bai_4;
 
 public class Student extends Person {
-    private String maSV, email, diemTK;
+    private String maSV, email;
+    private double diemTK;
 
-    public Student(String maSV, String email, String diemTK, String hoTen, String ngaySinh, String diaChi, String gioiTinh) {
+    public Student(String maSV, String email, double diemTK, String hoTen, String ngaySinh, String diaChi, String gioiTinh) {
         super(hoTen, ngaySinh, diaChi, gioiTinh);
         this.maSV = maSV;
         this.email = email;
@@ -29,11 +30,11 @@ public class Student extends Person {
         this.email = email;
     }
 
-    public String getDiemTK() {
+    public double getDiemTK() {
         return diemTK;
     }
 
-    public void setDiemTK(String diemTK) {
+    public void setDiemTK(double diemTK) {
         this.diemTK = diemTK;
     }
     
