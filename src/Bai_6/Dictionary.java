@@ -1,7 +1,7 @@
 
 package Bai_6;
 
-public class Dictionary{
+public class Dictionary implements Comparable<Dictionary>{
     private String vn, en;
     
     public Dictionary(){
@@ -32,6 +32,11 @@ public class Dictionary{
     @Override
     public String toString() {
         return en + " - " + vn;
+    }
+
+    @Override
+    public int compareTo(Dictionary o) {
+        return en.compareToIgnoreCase(o.en);
     }
     
     

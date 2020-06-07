@@ -5,33 +5,56 @@
  */
 package Bai_6;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author DINH
- */
 public class Form_bai6 extends javax.swing.JFrame {
-    Dictionary[] dsTuDien = new Dictionary[20];
-    ArrayList<Dictionary> dsArrayList;
-    
+    ArrayList<Dictionary> dsTuDien = new ArrayList<Dictionary>();
+    String en,vn;
     public Form_bai6() {
         initComponents();
         khoiTao();
+        add_button.setVisible(false);
     }
     public void khoiTao(){
-        dsTuDien[0] = new Dictionary("motor", "xe máy");
-        dsTuDien[1] = new Dictionary("book", "bàn");
-        dsTuDien[2] = new Dictionary("window", "cửa sổ");
-        dsTuDien[3] = new Dictionary("chair","ghế" );
-        dsTuDien[4] = new Dictionary("fan", "quạt");
-        dsTuDien[5] = new Dictionary("music", "nhạc");
-        dsTuDien[6] = new Dictionary("hello", "xin chào");
-        dsTuDien[7] = new Dictionary("spoon", "thìa");
-        dsTuDien[8] = new Dictionary("bottle", "chai");
-        dsTuDien[9] = new Dictionary("go", "đi");
-        dsTuDien[10] = new Dictionary("school", "trường học");
-        dsTuDien[11] = new Dictionary("computer", "máy tính");
+        try {
+            FileReader fr = new FileReader("Dictionary.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while((line = br.readLine())!= null){
+                String[] a = line.split("\\, ");
+                dsTuDien.add(new Dictionary(a[0], a[1]));
+            }
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Đọc File thất bại");
+            e.printStackTrace();
+        }
+        
+        Collections.sort(dsTuDien);
+        System.out.println("DANH SÁCH TỪ:");
+        for (Dictionary x : dsTuDien) {
+            System.out.println(x);
+        }
+    }
+    public int binarySearch(ArrayList<Dictionary> tuDien, int l, int r, String input){
+        if(r>=l){
+            int mid = (l+r)/2;
+            if(tuDien.get(mid).getEn().equalsIgnoreCase(input)){
+                return mid;
+            } else if (input.compareToIgnoreCase(tuDien.get(mid).getEn()) < 0){
+                return binarySearch(tuDien, l, mid-1, input);
+            } else {
+                return binarySearch(tuDien, mid+1, r, input);
+            }
+        }
+        return -1;
+        
     }
     
     /**
@@ -44,19 +67,25 @@ public class Form_bai6 extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         jLabel2 = new javax.swing.JLabel();
         en_txt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         vn_txt = new javax.swing.JTextField();
         translate_button = new javax.swing.JButton();
+        add_button = new javax.swing.JButton();
+        status_label = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
+
+        jScrollPane1.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("Tiếng Anh");
 
-        jLabel3.setText("Nghĩa");
+        jLabel3.setText("Nghĩa Việt");
 
         translate_button.setText("Tìm nghĩa");
         translate_button.addActionListener(new java.awt.event.ActionListener() {
@@ -65,23 +94,38 @@ public class Form_bai6 extends javax.swing.JFrame {
             }
         });
 
+        add_button.setText("Lưu từ");
+        add_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(32, 32, 32)
-                        .addComponent(en_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(32, 32, 32)
+                                .addComponent(en_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(translate_button)
+                                    .addComponent(vn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(add_button))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(translate_button)
-                            .addComponent(vn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(102, 102, 102)
+                        .addComponent(status_label)))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,7 +141,11 @@ public class Form_bai6 extends javax.swing.JFrame {
                     .addComponent(vn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(translate_button)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(add_button)
+                .addGap(28, 28, 28)
+                .addComponent(status_label)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,18 +153,31 @@ public class Form_bai6 extends javax.swing.JFrame {
 
     private void translate_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_translate_buttonActionPerformed
         // TODO add your handling code here:
-        
-        System.out.println(dsTuDien[1]);
-        String input = en_txt.getText();
-        for(int i=0; i<dsTuDien.length-1; i++ ){
-            if(input.equalsIgnoreCase(dsTuDien[i].getEn())){
-                vn_txt.setText(dsTuDien[i].getVn());
-            } else {
-                continue;
-            }
+        en = en_txt.getText();
+        int index = binarySearch(dsTuDien, 0, dsTuDien.size(), en);
+        if(index == -1){
+            vn_txt.setText("");
+            JOptionPane.showMessageDialog(null,"Từ bạn nhập bị sai hoặc không có trong từ điển, hãy thêm nghĩa cho từ !");
+            vn = JOptionPane.showInputDialog("Nhập nghĩa");
+            vn_txt.setText(vn);
+            add_button.setVisible(true);
+        } else {
+            vn_txt.setText(dsTuDien.get(index).getVn());
+        }
+    }//GEN-LAST:event_translate_buttonActionPerformed
+
+    private void add_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_buttonActionPerformed
+        // TODO add your handling code here:
+        try {
+            FileWriter fw = new FileWriter("Dictionary.txt",true);
+            fw.write(en + ", " + vn + "\n");
+            fw.close();
+            status_label.setText("Đã Lưu từ");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         
-    }//GEN-LAST:event_translate_buttonActionPerformed
+    }//GEN-LAST:event_add_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,10 +215,14 @@ public class Form_bai6 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_button;
     private javax.swing.JTextField en_txt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTree jTree1;
+    private javax.swing.JLabel status_label;
     private javax.swing.JButton translate_button;
     private javax.swing.JTextField vn_txt;
     // End of variables declaration//GEN-END:variables

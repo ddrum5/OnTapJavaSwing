@@ -1,0 +1,15 @@
+motor, xe máy
+book, bàn
+window, Cửa sổ    
+chair, ghế
+fan, quạt
+music, nhạc 
+hello, xin chào
+spoon, thìa
+bottle, chai
+go, đi
+school, trường học 
+computer, máy tính
+big, lớn
+goodbye, Tạm biệt
+Scopion, Bọ cạp

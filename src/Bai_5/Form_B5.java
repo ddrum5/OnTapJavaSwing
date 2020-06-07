@@ -5,16 +5,12 @@
  */
 package Bai_5;
 
-import Bai_3.NhanVien;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.shape.SVGPath;
 import javax.swing.JOptionPane;
-import sun.awt.FwDispatcher;
 
 /**
  *
