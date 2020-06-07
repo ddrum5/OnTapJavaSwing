@@ -54,7 +54,6 @@ public class Form_bai6 extends javax.swing.JFrame {
             }
         }
         return -1;
-        
     }
     
     /**
